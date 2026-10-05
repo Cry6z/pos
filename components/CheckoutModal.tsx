@@ -185,7 +185,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-zinc-500 dark:text-zinc-400">waktu transaksi</span>
-                    <span className="font-medium text-zinc-800 dark:text-zinc-200">
+                    <span suppressHydrationWarning className="font-medium text-zinc-800 dark:text-zinc-200">
                       {formatDate(completedTx.date)}
                     </span>
                   </div>

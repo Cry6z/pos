@@ -185,7 +185,7 @@ export default function TransactionsPage() {
                       </div>
 
                       <div className="flex items-center justify-between text-xs">
-                        <div className="text-zinc-500 dark:text-zinc-400 text-[11px]">
+                        <div suppressHydrationWarning className="text-zinc-500 dark:text-zinc-400 text-[11px]">
                           {formatDate(tx.date)}
                         </div>
                         <span className="inline-flex items-center px-2 py-0.5 rounded-none text-[10px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">
@@ -247,7 +247,7 @@ export default function TransactionsPage() {
                           <td className="py-3.5 px-5 font-bold text-zinc-950 dark:text-zinc-100">
                             {tx.invoice.toLowerCase()}
                           </td>
-                          <td className="py-3.5 px-5 text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
+                          <td suppressHydrationWarning className="py-3.5 px-5 text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
                             {formatDate(tx.date)}
                           </td>
                           <td className="py-3.5 px-5">

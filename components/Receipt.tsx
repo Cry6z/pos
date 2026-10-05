@@ -65,7 +65,7 @@ export function Receipt({ transaction, onClose, standalone = false }: ReceiptPro
             <p className="font-mono text-xs font-bold text-zinc-900">
               {transaction.invoice.toLowerCase()}
             </p>
-            <p className="text-[11px] text-zinc-500 mt-0.5">
+            <p suppressHydrationWarning className="text-[11px] text-zinc-500 mt-0.5">
               {formatDate(transaction.date)}
             </p>
           </div>

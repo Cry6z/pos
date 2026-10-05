@@ -100,7 +100,7 @@ export const INITIAL_TRANSACTIONS: Transaction[] = [
   {
     id: "tx-1",
     invoice: "#inv-00128",
-    date: new Date(Date.now() - 1000 * 60 * 25).toISOString(),
+    date: "2026-10-05T14:30:00.000Z",
     items: [
       { id: "prod-2", name: "cafe latte", price: 25000, quantity: 2, subtotal: 50000 },
       { id: "prod-1", name: "americano", price: 18000, quantity: 1, subtotal: 18000 },
@@ -113,13 +113,13 @@ export const INITIAL_TRANSACTIONS: Transaction[] = [
     amountReceived: 68000,
     change: 0,
     status: "Paid",
-    cashierName: "gibran (barista)",
+    cashierName: "cashier",
     customerName: "dika",
   },
   {
     id: "tx-2",
     invoice: "#inv-00127",
-    date: new Date(Date.now() - 1000 * 60 * 65).toISOString(),
+    date: "2026-10-05T13:45:00.000Z",
     items: [
       { id: "prod-4", name: "matcha latte", price: 28000, quantity: 1, subtotal: 28000 },
       { id: "prod-6", name: "croissant", price: 20000, quantity: 2, subtotal: 40000 },
@@ -132,13 +132,13 @@ export const INITIAL_TRANSACTIONS: Transaction[] = [
     amountReceived: 68000,
     change: 0,
     status: "Paid",
-    cashierName: "gibran (barista)",
+    cashierName: "cashier",
     customerName: "sarah",
   },
   {
     id: "tx-3",
     invoice: "#inv-00126",
-    date: new Date(Date.now() - 1000 * 60 * 130).toISOString(),
+    date: "2026-10-05T12:15:00.000Z",
     items: [
       { id: "prod-3", name: "cappuccino", price: 25000, quantity: 1, subtotal: 25000 },
       { id: "prod-8", name: "chicken sandwich", price: 30000, quantity: 1, subtotal: 30000 },
@@ -152,7 +152,7 @@ export const INITIAL_TRANSACTIONS: Transaction[] = [
     amountReceived: 100000,
     change: 27000,
     status: "Paid",
-    cashierName: "gibran (barista)",
+    cashierName: "cashier",
     customerName: "budi",
   },
 ];
