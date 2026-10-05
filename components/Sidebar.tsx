@@ -162,7 +162,7 @@ export function Sidebar() {
       </aside>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-t border-zinc-300 dark:border-zinc-800 px-2 py-1.5 flex justify-around items-center no-print rounded-none font-mono lowercase">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-t border-zinc-300 dark:border-zinc-800 px-1 py-1 sm:px-2 sm:py-1.5 flex justify-around items-center no-print rounded-none font-mono lowercase">
         {navItems.map((item) => {
           const isActive =
             item.href === "/"
@@ -174,19 +174,19 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center justify-center py-1 px-3 rounded-none text-[10px] font-medium relative transition-colors ${
+              className={`flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-none text-[9px] sm:text-[10px] font-medium relative transition-colors ${
                 isActive ? "text-zinc-950 dark:text-zinc-50 font-bold" : "text-zinc-500 dark:text-zinc-400"
               }`}
             >
               <div className="relative">
-                <Icon className={`w-5 h-5 ${isActive ? "text-zinc-950 dark:text-zinc-50" : "text-zinc-400 dark:text-zinc-600"}`} />
+                <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? "text-zinc-950 dark:text-zinc-50" : "text-zinc-400 dark:text-zinc-600"}`} />
                 {item.badge !== null && (
-                  <span className="absolute -top-1 -right-2 bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 text-[9px] w-4 h-4 rounded-none flex items-center justify-center font-bold">
+                  <span className="absolute -top-1.5 -right-2 bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 text-[8px] sm:text-[9px] w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-none flex items-center justify-center font-bold">
                     {item.badge}
                   </span>
                 )}
               </div>
-              <span className="mt-1">{item.label}</span>
+              <span className="mt-1 truncate max-w-full text-center leading-none">{item.label}</span>
             </Link>
           );
         })}

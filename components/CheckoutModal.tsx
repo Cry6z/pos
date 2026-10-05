@@ -112,41 +112,41 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150 no-print font-mono lowercase">
-        <div className="relative w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-none border-2 border-zinc-950 dark:border-zinc-700 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col text-zinc-950 dark:text-zinc-50">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150 no-print font-mono lowercase">
+        <div className="relative w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-none border-2 border-zinc-950 dark:border-zinc-700 shadow-2xl overflow-hidden max-h-[94vh] sm:max-h-[92vh] flex flex-col text-zinc-950 dark:text-zinc-50">
           {/* Header with Open API Quick Inspector */}
-          <div className="px-6 py-4 border-b border-zinc-300 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-950">
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-sm font-bold text-zinc-950 dark:text-zinc-50 lowercase">
+          <div className="px-4 py-3 sm:px-6 sm:py-4 border-b border-zinc-300 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-950">
+            <div className="min-w-0 pr-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <h2 className="text-xs sm:text-sm font-bold text-zinc-950 dark:text-zinc-50 lowercase truncate">
                   {completedTx ? "transaksi berhasil" : "checkout & gateway pembayaran digital"}
                 </h2>
-                <span className="text-[10px] px-1.5 py-0.5 bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-300 dark:border-emerald-800">
+                <span className="text-[9px] sm:text-[10px] px-1.5 py-0.5 bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-300 dark:border-emerald-800 shrink-0">
                   snap bi
                 </span>
               </div>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 lowercase mt-0.5">
+              <p className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 lowercase mt-0.5 truncate">
                 {completedTx
                   ? "pembayaran terverifikasi dan tercatat pada buku kasir"
                   : "integrasi 6 pilar fintech: qris, e-wallet, mobile banking, p2p, open api & keamanan"}
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <button
                 type="button"
                 onClick={() => setShowApiModal(true)}
                 title="lihat simulasi open api snap bi"
-                className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-bold bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700"
+                className="flex items-center gap-1 px-2 sm:px-2.5 py-1 text-[10px] sm:text-[11px] font-bold bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700"
               >
                 <Code2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>open api</span>
+                <span className="hidden xs:inline sm:inline">open api</span>
               </button>
 
               {!completedTx && (
                 <button
                   onClick={onClose}
-                  className="p-1.5 text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+                  className="p-1 sm:p-1.5 text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -155,7 +155,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
           </div>
 
           {/* Modal Body */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-5">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5">
             {completedTx ? (
               /* Success State */
               <div className="text-center py-4 space-y-5 animate-in zoom-in-95 duration-200">
@@ -411,7 +411,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                       <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 block mb-2">
                         pilih dompet digital:
                       </span>
-                      <div className="grid grid-cols-4 gap-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                         {(["GoPay", "OVO", "DANA", "ShopeePay"] as const).map((w) => (
                           <button
                             key={w}
@@ -420,7 +420,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                             className={`py-2 px-3 border text-xs font-bold transition-all ${
                               selectedWallet === w
                                 ? "bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 border-zinc-950 dark:border-white shadow-sm"
-                                : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700"
+                                : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                             }`}
                           >
                             {w}
@@ -550,16 +550,16 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                       <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 block mb-2">
                         pilihan skema cicilan (tenor):
                       </span>
-                      <div className="grid grid-cols-3 gap-2 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
                         {["30 hari (bunga 0%)", "3 bulan cicilan", "6 bulan cicilan"].map((t) => (
                           <button
                             key={t}
                             type="button"
                             onClick={() => setTenorChoice(t)}
-                            className={`py-2 px-2 border text-[11px] font-semibold transition-all ${
+                            className={`py-2 px-2 border text-[11px] font-semibold transition-all text-center ${
                               tenorChoice === t
                                 ? "bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 border-zinc-950 dark:border-white"
-                                : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700"
+                                : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                             }`}
                           >
                             {t}

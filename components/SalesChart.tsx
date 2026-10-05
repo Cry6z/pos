@@ -28,7 +28,7 @@ export function SalesChart() {
   const totalToday = data.reduce((acc, d) => acc + d.amount, 0);
 
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-none border border-zinc-300 dark:border-zinc-800 p-6 sm:p-7 shadow-sm space-y-6 font-mono lowercase">
+    <div className="bg-white dark:bg-zinc-900 rounded-none border border-zinc-300 dark:border-zinc-800 p-4 sm:p-7 shadow-sm space-y-4 sm:space-y-6 font-mono lowercase">
       {/* Chart Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
@@ -36,25 +36,25 @@ export function SalesChart() {
             <h3 className="font-bold text-zinc-950 dark:text-zinc-50 text-sm sm:text-base lowercase">
               sales overview
             </h3>
-            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-none border border-emerald-300 dark:border-emerald-800 lowercase">
+            <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-none border border-emerald-300 dark:border-emerald-800 lowercase">
               <TrendingUp className="w-3 h-3" />
               +14.2% today
             </span>
           </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 lowercase">
+          <p className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 lowercase">
             hourly sales velocity and transaction volume
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-300 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 px-3 py-1.5 rounded-none self-start sm:self-auto font-medium lowercase">
+        <div className="flex items-center gap-2 text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-300 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-none self-start sm:self-auto font-medium lowercase">
           <Calendar className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" />
-          <span>today (05 oct 2026)</span>
+          <span>today (06 oct 2026)</span>
         </div>
       </div>
 
       {/* SVG / HTML Bar Chart with Sharp Bars */}
-      <div className="pt-4">
-        <div className="h-48 flex items-end gap-3 sm:gap-6 px-2 pb-2 border-b border-zinc-200 dark:border-zinc-800">
+      <div className="pt-2 sm:pt-4">
+        <div className="h-44 sm:h-48 flex items-end gap-1.5 sm:gap-6 px-1 sm:px-2 pb-2 border-b border-zinc-200 dark:border-zinc-800">
           {data.map((item, index) => {
             const heightPercent = Math.round((item.amount / maxAmount) * 100);
             const isHovered = hoveredIndex === index;
@@ -62,6 +62,7 @@ export function SalesChart() {
             return (
               <div
                 key={item.time}
+                onClick={() => setHoveredIndex(hoveredIndex === index ? null : index)}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 className="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer relative"

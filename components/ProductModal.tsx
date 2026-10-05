@@ -46,8 +46,8 @@ function ProductFormContent({
   };
 
   return (
-    <div className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-none border-2 border-zinc-950 dark:border-zinc-700 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150 font-mono lowercase text-zinc-950 dark:text-zinc-50">
-      <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-950">
+    <div className="w-full max-w-md max-h-[94vh] flex flex-col bg-white dark:bg-zinc-900 rounded-none border-2 border-zinc-950 dark:border-zinc-700 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150 font-mono lowercase text-zinc-950 dark:text-zinc-50">
+      <div className="px-4 py-3 sm:px-6 sm:py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-950 shrink-0">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-none bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 flex items-center justify-center">
             <PackagePlus className="w-4 h-4" />
@@ -56,7 +56,7 @@ function ProductFormContent({
             <h2 className="text-xs sm:text-sm font-bold text-zinc-950 dark:text-zinc-50 lowercase">
               {initialProduct ? "edit product" : "add new product"}
             </h2>
-            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 lowercase">
+            <p className="text-[10px] sm:text-[11px] text-zinc-500 dark:text-zinc-400 lowercase">
               {initialProduct ? "update catalog product details" : "add a new item to your pos menu"}
             </p>
           </div>
@@ -69,7 +69,7 @@ function ProductFormContent({
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-6 space-y-4">
+      <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
         <div>
           <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
             product name *

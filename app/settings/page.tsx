@@ -55,9 +55,9 @@ export default function SettingsPage() {
         subtitle="configure store information, tax rate, cashier details, and prototype data"
       />
 
-      <main className="p-6 lg:p-8 space-y-6 max-w-4xl w-full mx-auto">
+      <main className="p-4 sm:p-6 lg:p-8 space-y-5 sm:space-y-6 max-w-4xl w-full mx-auto pb-24 lg:pb-10">
         {/* Theme Appearance Mode Card */}
-        <div className="bg-white dark:bg-zinc-900 rounded-none border border-zinc-300 dark:border-zinc-800 p-6 shadow-sm space-y-4">
+        <div className="bg-white dark:bg-zinc-900 rounded-none border border-zinc-300 dark:border-zinc-800 p-4 sm:p-6 shadow-sm space-y-4">
           <div className="flex items-center gap-2 pb-3 border-b border-zinc-200 dark:border-zinc-800">
             <div className="w-7 h-7 rounded-none bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700">
               {theme === "dark" ? <Moon className="w-3.5 h-3.5 text-zinc-300" /> : <Sun className="w-3.5 h-3.5 text-amber-600" />}
@@ -257,15 +257,15 @@ export default function SettingsPage() {
           </div>
 
           {/* Save Button */}
-          <div className="flex items-center justify-between pt-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
             <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400">
-              <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
+              <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0" />
               <span>persisted automatically in client-side localstorage</span>
             </div>
 
             <button
               type="submit"
-              className="flex items-center gap-2 px-5 py-2.5 bg-zinc-950 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 rounded-none text-xs font-bold shadow-sm transition-all border border-zinc-950 dark:border-white"
+              className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 bg-zinc-950 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 rounded-none text-xs font-bold shadow-sm transition-all border border-zinc-950 dark:border-white"
             >
               {isSaved ? (
                 <>
@@ -283,8 +283,8 @@ export default function SettingsPage() {
         </form>
 
         {/* Prototype Reset Card */}
-        <div className="bg-white dark:bg-zinc-900 rounded-none border border-rose-200 dark:border-rose-900/60 p-6 shadow-sm space-y-3 mt-8">
-          <div className="flex items-center justify-between">
+        <div className="bg-white dark:bg-zinc-900 rounded-none border border-rose-200 dark:border-rose-900/60 p-4 sm:p-6 shadow-sm space-y-3 mt-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
               <h4 className="text-sm font-bold text-zinc-950 dark:text-zinc-50 lowercase">
                 reset prototype data
@@ -296,7 +296,7 @@ export default function SettingsPage() {
             <button
               type="button"
               onClick={handleReset}
-              className="flex items-center gap-1.5 px-4 py-2 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-800 rounded-none text-xs font-semibold transition-colors"
+              className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-800 rounded-none text-xs font-semibold transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>reset data</span>
