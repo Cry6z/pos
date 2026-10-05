@@ -38,22 +38,19 @@ export function AppLayoutWrapper({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex w-full min-h-screen relative overflow-x-hidden">
+    <div className="flex w-full min-h-screen relative">
       {/* Handover Telemetry Sweep Accent when arriving from login */}
       {isTransitioningFromLogin && (
         <div className="fixed top-0 left-0 right-0 h-0.5 bg-zinc-950 dark:bg-white z-50 anim-sweep pointer-events-none" />
       )}
 
-      {/* Sidebar with entrance motion */}
-      <div className={`shrink-0 ${isTransitioningFromLogin ? "anim-slide-left" : ""}`}>
-        <Sidebar />
-      </div>
+      {/* Strictly Fixed Sidebar */}
+      <Sidebar />
 
-      {/* Main Content Area with smooth entrance */}
+      {/* Main Content Area - offset by sidebar width on desktop */}
       <div
-        key={pathname}
-        className={`flex-1 flex flex-col min-w-0 pb-16 lg:pb-0 ${
-          isTransitioningFromLogin ? "anim-slide-up" : "anim-fade-in"
+        className={`flex-1 flex flex-col min-w-0 pb-16 lg:pb-0 lg:pl-64 ${
+          isTransitioningFromLogin ? "anim-slide-up" : ""
         }`}
       >
         {children}

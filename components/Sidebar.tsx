@@ -51,8 +51,8 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex w-64 flex-col bg-white dark:bg-zinc-950 border-r border-zinc-300 dark:border-zinc-800 h-screen sticky top-0 shrink-0 select-none z-30 no-print rounded-none font-mono lowercase">
+      {/* Desktop Sidebar - Strictly Fixed in Location */}
+      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-64 flex-col bg-white dark:bg-zinc-950 border-r border-zinc-300 dark:border-zinc-800 h-screen select-none z-30 no-print rounded-none font-mono lowercase">
         {/* Brand Header */}
         <div className="h-16 flex items-center gap-3 px-6 border-b border-zinc-200 dark:border-zinc-800">
           <div className="w-8 h-8 rounded-none bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 flex items-center justify-center font-bold text-base shadow-sm">
@@ -89,6 +89,7 @@ export function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={true}
                 className={`flex items-center justify-between px-3.5 py-2.5 rounded-none text-xs font-semibold transition-all border ${
                   isActive
                     ? "bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 border-zinc-950 dark:border-white shadow-sm"
@@ -174,6 +175,7 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={true}
               className={`flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-none text-[9px] sm:text-[10px] font-medium relative transition-colors ${
                 isActive ? "text-zinc-950 dark:text-zinc-50 font-bold" : "text-zinc-500 dark:text-zinc-400"
               }`}

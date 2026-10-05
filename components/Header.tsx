@@ -121,6 +121,7 @@ export function Header({ title, subtitle, actions }: HeaderProps) {
         {pathname !== "/pos" && (
           <Link
             href="/pos"
+            prefetch={true}
             className="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-none bg-zinc-950 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 text-xs font-semibold shadow-sm transition-all border border-zinc-950 dark:border-white"
           >
             <ShoppingBag className="w-3.5 h-3.5 text-amber-400 dark:text-amber-600 shrink-0" />

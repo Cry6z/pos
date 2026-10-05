@@ -54,6 +54,7 @@ export default function DashboardPage() {
         actions={
           <Link
             href="/pos"
+            prefetch={true}
             className="flex items-center gap-2 px-4 py-2 bg-zinc-950 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 rounded-none text-xs font-bold shadow-sm transition-all border border-zinc-950 dark:border-white"
           >
             <Plus className="w-4 h-4" />
@@ -64,7 +65,7 @@ export default function DashboardPage() {
 
       <main className="p-4 sm:p-8 lg:p-10 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto pb-24 lg:pb-10">
         {/* Spacious Barista Greeting Banner */}
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 p-5 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6 shadow-sm anim-slide-up">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 p-5 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6 shadow-sm">
           <div className="space-y-1.5 sm:space-y-2 max-w-2xl">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 bg-emerald-500 rounded-none animate-pulse" />
@@ -86,6 +87,7 @@ export default function DashboardPage() {
           <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 sm:gap-3 shrink-0 w-full md:w-auto">
             <Link
               href="/pos"
+              prefetch={true}
               className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-zinc-950 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-100 text-white dark:text-zinc-950 text-xs font-bold border border-zinc-950 dark:border-white shadow-sm transition-all active:scale-[0.98]"
             >
               <Plus className="w-4 h-4" />
@@ -105,7 +107,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Statistics Grid with Responsive Gap */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 anim-fade-in">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
           <StatCard
             title="today's sales"
             value={formatRupiah(displaySales)}
@@ -156,6 +158,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/transactions"
+              prefetch={true}
               className="flex items-center gap-1 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors p-1"
             >
               <span>view all</span>
