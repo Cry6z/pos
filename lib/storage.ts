@@ -1,4 +1,4 @@
-import { Product, Transaction, StoreSettings } from "./types";
+import { Product, Transaction, StoreSettings, Barista, CashierConfig } from "./types";
 
 export const DEFAULT_PRODUCTS: Product[] = [
   {
@@ -78,14 +78,23 @@ export const DEFAULT_PRODUCTS: Product[] = [
 export const DEFAULT_SETTINGS: StoreSettings = {
   storeName: "proticafe",
   tagline: "specialty coffee & good vibes",
-  address: "jl. senopati raya no. 42, kebayoran baru, jakarta selatan",
+  address: "jl. wr. supratman, kandang limun, kec. muara bangka hulu, sumatera, bengkulu 38371",
   phone: "+62 812-3456-7890",
-  cashierName: "gibran (barista)",
+  cashierName: "cashier",
   taxRate: 0,
   currencySymbol: "rp",
   receiptFooter: "thank you for your purchase!\nfollow us on instagram @proticafe",
   instagramHandle: "@proticafe",
 };
+
+export const DEFAULT_CASHIER: CashierConfig = {
+  name: "cashier",
+  role: "kasir front counter",
+  shift: "shift 1 • front counter",
+  pin: "1234",
+};
+
+export const DEMO_BARISTAS: Barista[] = [DEFAULT_CASHIER];
 
 export const INITIAL_TRANSACTIONS: Transaction[] = [
   {
@@ -153,6 +162,7 @@ const KEYS = {
   TRANSACTIONS: "minipos_transactions_v2",
   SETTINGS: "minipos_settings_v2",
   CART: "minipos_cart_v2",
+  BARISTA: "minipos_active_barista_v2",
 };
 
 export const storage = {
@@ -217,10 +227,16 @@ export const storage = {
         return DEFAULT_SETTINGS;
       }
       const parsed = JSON.parse(data);
-      if (!parsed.storeName || parsed.storeName.toLowerCase().includes("gib")) {
+      if (
+        !parsed.storeName ||
+        parsed.storeName.toLowerCase().includes("gib") ||
+        !parsed.address ||
+        parsed.address.toLowerCase().includes("senopati")
+      ) {
         const updated = {
           ...parsed,
           storeName: "proticafe",
+          address: DEFAULT_SETTINGS.address,
           instagramHandle: "@proticafe",
           receiptFooter: "thank you for your purchase!\nfollow us on instagram @proticafe",
         };
@@ -239,6 +255,49 @@ export const storage = {
       localStorage.setItem(KEYS.SETTINGS, JSON.stringify(settings));
     } catch (e) {
       console.error("Failed to save settings", e);
+    }
+  },
+
+  getActiveBarista(): Barista | null {
+    if (typeof window === "undefined") return null;
+    try {
+      const data = localStorage.getItem(KEYS.BARISTA);
+      if (!data) return null;
+      return JSON.parse(data);
+    } catch {
+      return null;
+    }
+  },
+
+  setActiveBarista(barista: Barista | null): void {
+    if (typeof window === "undefined") return;
+    try {
+      if (barista) {
+        localStorage.setItem(KEYS.BARISTA, JSON.stringify(barista));
+      } else {
+        localStorage.removeItem(KEYS.BARISTA);
+      }
+    } catch (e) {
+      console.error("Failed to save barista", e);
+    }
+  },
+
+  getIsAuthenticated(): boolean {
+    if (typeof window === "undefined") return true;
+    try {
+      const auth = localStorage.getItem("minipos_auth_v2");
+      return auth === "true";
+    } catch {
+      return false;
+    }
+  },
+
+  setIsAuthenticated(authenticated: boolean): void {
+    if (typeof window === "undefined") return;
+    try {
+      localStorage.setItem("minipos_auth_v2", authenticated ? "true" : "false");
+    } catch (e) {
+      console.error("Failed to save auth state", e);
     }
   },
 

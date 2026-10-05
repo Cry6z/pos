@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ShoppingBag, Clock, Sun, Moon } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { ShoppingBag, Clock, Sun, Moon, Lock } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { formatRupiah } from "@/lib/storage";
 
@@ -15,7 +15,8 @@ interface HeaderProps {
 
 export function Header({ title, subtitle, actions }: HeaderProps) {
   const pathname = usePathname();
-  const { cart, total, settings, theme, toggleTheme } = useApp();
+  const router = useRouter();
+  const { cart, total, settings, theme, toggleTheme, cashier, lockTerminal } = useApp();
   const [timeString, setTimeString] = useState<string>("");
 
   useEffect(() => {
@@ -71,6 +72,20 @@ export function Header({ title, subtitle, actions }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-2.5">
+        {/* Active Cashier Pill with Lock action */}
+        <button
+          onClick={() => {
+            lockTerminal();
+            router.push("/login");
+          }}
+          title="kunci terminal kasir (lock)"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-none bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 text-xs font-semibold transition-colors"
+        >
+          <span className="w-2 h-2 rounded-none bg-emerald-500 animate-pulse" />
+          <span className="font-bold">{cashier.name}</span>
+          <Lock className="w-3 h-3 text-zinc-400 ml-0.5" />
+        </button>
+
         {/* Live Clock */}
         <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-300 font-medium">
           <Clock className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" />

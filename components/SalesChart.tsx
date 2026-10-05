@@ -28,7 +28,7 @@ export function SalesChart() {
   const totalToday = data.reduce((acc, d) => acc + d.amount, 0);
 
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-none border border-zinc-300 dark:border-zinc-800 p-5 shadow-sm space-y-4 font-mono lowercase">
+    <div className="bg-white dark:bg-zinc-900 rounded-none border border-zinc-300 dark:border-zinc-800 p-6 sm:p-7 shadow-sm space-y-6 font-mono lowercase">
       {/* Chart Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
@@ -78,7 +78,7 @@ export function SalesChart() {
 
                 {/* Sharp Bar Container */}
                 <div
-                  className="w-full max-w-[42px] bg-zinc-100 dark:bg-zinc-800 group-hover:bg-zinc-950 dark:group-hover:bg-zinc-100 rounded-none transition-all duration-150 relative overflow-hidden flex flex-col justify-end border border-zinc-200 dark:border-zinc-700"
+                  className="w-full max-w-10.5 bg-zinc-100 dark:bg-zinc-800 group-hover:bg-zinc-950 dark:group-hover:bg-zinc-100 rounded-none transition-all duration-150 relative overflow-hidden flex flex-col justify-end border border-zinc-200 dark:border-zinc-700"
                   style={{ height: `${Math.max(12, heightPercent)}%` }}
                 >
                   <div

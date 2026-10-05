@@ -79,7 +79,7 @@ export function Cart({ onOpenCheckout }: CartProps) {
             <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-xs sm:text-sm lowercase">
               your cart is empty
             </h3>
-            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 max-w-[200px] leading-relaxed lowercase">
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 max-w-50 leading-relaxed lowercase">
               select items from the catalog on the left to start a new order.
             </p>
           </div>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Header } from "@/components/Header";
 import { StatCard } from "@/components/StatCard";
 import { SalesChart } from "@/components/SalesChart";
@@ -19,7 +20,14 @@ import {
 } from "lucide-react";
 
 export default function DashboardPage() {
-  const { transactions, setActiveReceipt } = useApp();
+  const router = useRouter();
+  const {
+    transactions,
+    setActiveReceipt,
+    cashier,
+    lockTerminal,
+    settings,
+  } = useApp();
 
   // Dynamic statistics from transactions
   const totalSales = transactions.reduce((acc, tx) => acc + tx.total, 0);
@@ -46,17 +54,58 @@ export default function DashboardPage() {
         actions={
           <Link
             href="/pos"
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-950 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 rounded-none text-xs font-semibold shadow-sm transition-all border border-zinc-950 dark:border-white"
+            className="flex items-center gap-2 px-4 py-2 bg-zinc-950 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 rounded-none text-xs font-bold shadow-sm transition-all border border-zinc-950 dark:border-white"
           >
-            <Plus className="w-3.5 h-3.5" />
-            <span>open pos</span>
+            <Plus className="w-4 h-4" />
+            <span>buka kasir</span>
           </Link>
         }
       />
 
-      <main className="p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
-        {/* Statistics Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <main className="p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
+        {/* Spacious Barista Greeting Banner */}
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm anim-slide-up">
+          <div className="space-y-2 max-w-2xl">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 bg-emerald-500 rounded-none animate-pulse" />
+              <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                shift aktif • {cashier.shift}
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-zinc-50 tracking-tight">
+              selamat bertugas, {cashier.name}.
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+              pantau performa penjualan harian, status shift kasir, dan transaksi pembayaran digital di{" "}
+              <span className="font-bold text-zinc-950 dark:text-zinc-100">
+                {settings.storeName || "proticafe"}
+              </span>.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/pos"
+              className="flex items-center gap-2 px-5 py-3 bg-zinc-950 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-100 text-white dark:text-zinc-950 text-xs font-bold border border-zinc-950 dark:border-white shadow-sm transition-all active:scale-[0.98]"
+            >
+              <Plus className="w-4 h-4" />
+              <span>order baru (pos)</span>
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                lockTerminal();
+                router.push("/login");
+              }}
+              className="flex items-center gap-1.5 px-4 py-3 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 text-xs font-bold transition-colors"
+            >
+              <span>kunci kasir</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Statistics Grid with Spacious Gap */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 anim-fade-in">
           <StatCard
             title="today's sales"
             value={formatRupiah(displaySales)}
@@ -94,15 +143,15 @@ export default function DashboardPage() {
         {/* Sales Overview Chart with Sharp Bars */}
         <SalesChart />
 
-        {/* Recent Transactions Table */}
+        {/* Recent Transactions Table with Spacious Rows */}
         <div className="bg-white dark:bg-zinc-900 rounded-none border border-zinc-300 dark:border-zinc-800 shadow-sm overflow-hidden">
-          <div className="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
-            <div>
-              <h3 className="font-bold text-zinc-950 dark:text-zinc-50 text-sm sm:text-base lowercase">
+          <div className="p-6 sm:p-7 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+            <div className="space-y-1">
+              <h3 className="font-bold text-zinc-950 dark:text-zinc-50 text-base sm:text-lg lowercase">
                 recent transactions
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 lowercase">
-                latest customer orders and payment confirmations
+              <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 lowercase">
+                latest customer orders and real-time payment settlement
               </p>
             </div>
             <Link
@@ -118,13 +167,13 @@ export default function DashboardPage() {
             <table className="w-full text-left text-xs font-mono">
               <thead className="bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 font-semibold text-[10px] tracking-wider">
                 <tr>
-                  <th className="py-3 px-5">invoice</th>
-                  <th className="py-3 px-5">time</th>
-                  <th className="py-3 px-5">payment</th>
-                  <th className="py-3 px-5">items</th>
-                  <th className="py-3 px-5 text-right">amount</th>
-                  <th className="py-3 px-5 text-center">status</th>
-                  <th className="py-3 px-5 text-right">action</th>
+                  <th className="py-3.5 px-6">invoice</th>
+                  <th className="py-3.5 px-6">time</th>
+                  <th className="py-3.5 px-6">payment</th>
+                  <th className="py-3.5 px-6">items</th>
+                  <th className="py-3.5 px-6 text-right">amount</th>
+                  <th className="py-3.5 px-6 text-center">status</th>
+                  <th className="py-3.5 px-6 text-right">action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
@@ -134,32 +183,32 @@ export default function DashboardPage() {
                     className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group cursor-pointer"
                     onClick={() => setActiveReceipt(tx)}
                   >
-                    <td className="py-3.5 px-5 font-bold text-zinc-950 dark:text-zinc-100">
+                    <td className="py-4 px-6 font-bold text-zinc-950 dark:text-zinc-100">
                       {tx.invoice.toLowerCase()}
                     </td>
-                    <td className="py-3.5 px-5 text-zinc-500 dark:text-zinc-400">
+                    <td className="py-4 px-6 text-zinc-500 dark:text-zinc-400">
                       {formatDate(tx.date)}
                     </td>
-                    <td className="py-3.5 px-5">
+                    <td className="py-4 px-6">
                       <span className="inline-flex items-center px-2 py-0.5 rounded-none text-[10px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">
                         {tx.paymentMethod.toLowerCase()}
                       </span>
                     </td>
-                    <td className="py-3.5 px-5 text-zinc-600 dark:text-zinc-300 truncate max-w-[180px]">
+                    <td className="py-4 px-6 text-zinc-600 dark:text-zinc-300 truncate max-w-45">
                       {tx.items.map((i) => `${i.name} (${i.quantity})`).join(", ")}
                     </td>
-                    <td className="py-3.5 px-5 font-bold text-zinc-950 dark:text-zinc-50 text-right">
+                    <td className="py-4 px-6 font-bold text-zinc-950 dark:text-zinc-50 text-right">
                       {formatRupiah(tx.total)}
                     </td>
-                    <td className="py-3.5 px-5 text-center">
-                      <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-none border border-emerald-300 dark:border-emerald-800">
+                    <td className="py-4 px-6 text-center">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-none border border-emerald-300 dark:border-emerald-800">
                         <CheckCircle2 className="w-3 h-3" /> paid
                       </span>
                     </td>
-                    <td className="py-3.5 px-5 text-right" onClick={(e) => e.stopPropagation()}>
+                    <td className="py-4 px-6 text-right" onClick={(e) => e.stopPropagation()}>
                       <button
                         onClick={() => setActiveReceipt(tx)}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 px-2.5 py-1 rounded-none border border-zinc-300 dark:border-zinc-700 transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 px-3 py-1.5 rounded-none border border-zinc-300 dark:border-zinc-700 transition-colors"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         <span>receipt</span>

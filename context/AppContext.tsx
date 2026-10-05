@@ -8,8 +8,15 @@ import {
   PaymentMethod,
   StoreSettings,
   ToastMessage,
+  CashierConfig,
 } from "@/lib/types";
-import { storage, DEFAULT_PRODUCTS, DEFAULT_SETTINGS, INITIAL_TRANSACTIONS } from "@/lib/storage";
+import {
+  storage,
+  DEFAULT_PRODUCTS,
+  DEFAULT_SETTINGS,
+  INITIAL_TRANSACTIONS,
+  DEFAULT_CASHIER,
+} from "@/lib/storage";
 
 interface AppContextType {
   products: Product[];
@@ -53,6 +60,12 @@ interface AppContextType {
     type?: "success" | "info" | "warning" | "error"
   ) => void;
   removeToast: (id: string) => void;
+  // Auth & Cashier (Single Account: cashier)
+  isAuthenticated: boolean;
+  cashier: CashierConfig;
+  currentBarista: CashierConfig | null;
+  loginWithPin: (pin: string) => boolean;
+  lockTerminal: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -67,6 +80,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [activeReceipt, setActiveReceipt] = useState<Transaction | null>(null);
   const [theme, setThemeState] = useState<"light" | "dark">("light");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
 
   // Initialize theme and localStorage asynchronously on mount
   useEffect(() => {
@@ -74,6 +88,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setProducts(storage.getProducts());
       setTransactions(storage.getTransactions());
       setSettings(storage.getSettings());
+
+      // Auth initialization
+      setIsAuthenticated(storage.getIsAuthenticated());
 
       // Theme initialization
       const savedTheme = localStorage.getItem("minipos_theme_v2") as "light" | "dark" | null;
@@ -111,11 +128,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem("minipos_theme_v2", newTheme);
     } catch {}
-    showToast(
-      newTheme === "dark" ? "mode malam aktif" : "mode siang aktif",
-      newTheme === "dark" ? "tampilan gelap diaktifkan" : "tampilan terang diaktifkan",
-      "info"
-    );
   };
 
   const toggleTheme = () => {
@@ -308,7 +320,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       amountReceived: finalReceived,
       change: finalChange,
       status: "Paid",
-      cashierName: settings.cashierName,
+      cashierName: "cashier",
       customerName,
     };
 
@@ -348,7 +360,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setSettings(DEFAULT_SETTINGS);
     setCart([]);
     setDiscount(0);
+    setIsAuthenticated(false);
+    storage.setIsAuthenticated(false);
     showToast("reset sistem", "data dikembalikan ke default prototype", "info");
+  };
+
+  const loginWithPin = (pin: string): boolean => {
+    if (pin === DEFAULT_CASHIER.pin) {
+      setIsAuthenticated(true);
+      storage.setIsAuthenticated(true);
+      showToast("kasir dibuka", "selamat bertugas di proticafe!", "success");
+      return true;
+    }
+    return false;
+  };
+
+  const lockTerminal = () => {
+    setIsAuthenticated(false);
+    storage.setIsAuthenticated(false);
   };
 
   return (
@@ -381,6 +410,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         resetAllData,
         showToast,
         removeToast,
+        isAuthenticated,
+        cashier: DEFAULT_CASHIER,
+        currentBarista: isAuthenticated ? DEFAULT_CASHIER : null,
+        loginWithPin,
+        lockTerminal,
       }}
     >
       {children}
@@ -395,3 +429,4 @@ export function useApp() {
   }
   return context;
 }
+

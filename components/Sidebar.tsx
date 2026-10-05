@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -11,12 +11,14 @@ import {
   Settings,
   CircleDot,
   UserCheck,
+  LogOut,
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { cart, settings } = useApp();
+  const router = useRouter();
+  const { cart, settings, cashier, lockTerminal } = useApp();
 
   const navItems = [
     {
@@ -130,18 +132,31 @@ export function Sidebar() {
               </span>
             </div>
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-none bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-zinc-800 dark:text-zinc-200 shrink-0">
+              <div className="w-7 h-7 rounded-none bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-zinc-800 dark:text-zinc-200 shrink-0 font-bold text-xs uppercase">
                 <UserCheck className="w-3.5 h-3.5" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate">
-                  {settings.cashierName || "gibran"}
+                <p className="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate lowercase">
+                  {cashier.name}
                 </p>
-                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate">
-                  shift 1 • front counter
+                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate lowercase">
+                  {cashier.shift}
                 </p>
               </div>
             </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                lockTerminal();
+                router.push("/login");
+              }}
+              title="kunci terminal kasir"
+              className="mt-2.5 w-full flex items-center justify-center gap-1.5 py-1.5 px-2 bg-zinc-200/70 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 text-[10px] font-bold border border-zinc-300 dark:border-zinc-700 transition-colors"
+            >
+              <LogOut className="w-3 h-3" />
+              <span>kunci kasir</span>
+            </button>
           </div>
         </div>
       </aside>

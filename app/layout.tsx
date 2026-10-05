@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Anonymous_Pro } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
-import { Sidebar } from "@/components/Sidebar";
 import { ToastContainer } from "@/components/Toast";
 import { GlobalReceiptViewer } from "@/components/GlobalReceiptViewer";
+import { AppLayoutWrapper } from "@/components/AppLayoutWrapper";
 
 const anonymousPro = Anonymous_Pro({
   weight: ["400", "700"],
@@ -29,12 +29,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex bg-[#f8fafc] dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50 font-mono lowercase selection:bg-zinc-900 selection:text-white dark:selection:bg-zinc-100 dark:selection:text-zinc-950">
         <AppProvider>
-          <div className="flex w-full min-h-screen">
-            <Sidebar />
-            <div className="flex-1 flex flex-col min-w-0 pb-16 lg:pb-0">
-              {children}
-            </div>
-          </div>
+          <AppLayoutWrapper>{children}</AppLayoutWrapper>
           <ToastContainer />
           <GlobalReceiptViewer />
         </AppProvider>

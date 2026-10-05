@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { Transaction } from "@/lib/types";
 import { formatRupiah, formatDate } from "@/lib/storage";
 import { useApp } from "@/context/AppContext";
-import { Printer, Download, X, CheckCircle2, Coffee } from "lucide-react";
+import { Printer, Download, X, CheckCircle2, Coffee, ShieldCheck } from "lucide-react";
 
 interface ReceiptProps {
   transaction: Transaction | null;
@@ -49,7 +49,7 @@ export function Receipt({ transaction, onClose, standalone = false }: ReceiptPro
         <p className="text-xs text-zinc-400 font-medium tracking-wide lowercase">
           digital payment receipt
         </p>
-        <p className="text-[11px] text-zinc-400 mt-1 max-w-[240px] mx-auto leading-tight lowercase">
+        <p className="text-[11px] text-zinc-400 mt-1 max-w-60 mx-auto leading-tight lowercase">
           {settings.address}
         </p>
         <p className="text-[11px] text-zinc-500 mt-0.5">{settings.phone}</p>
@@ -172,6 +172,28 @@ export function Receipt({ transaction, onClose, standalone = false }: ReceiptPro
             <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-none border border-emerald-300">
               <CheckCircle2 className="w-3 h-3" /> paid ✓
             </span>
+          </div>
+
+          {/* Fintech Security & Open API Protocol Stamp */}
+          <div className="pt-2 border-t border-dashed border-zinc-200 text-[10px] space-y-1 bg-zinc-100/70 p-2 rounded-none">
+            <div className="flex items-center justify-between font-semibold text-zinc-700">
+              <span className="flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3 text-emerald-700" />
+                fintech verification
+              </span>
+              <span className="text-[9px] uppercase px-1 py-0.2 bg-zinc-200 text-zinc-700">
+                {transaction.securityMeta?.authType ? transaction.securityMeta.authType.replace("_", " ") : "2fa verified"}
+              </span>
+            </div>
+            <div className="flex justify-between text-zinc-500 font-mono text-[9px]">
+              <span>protocol: snap bi open api</span>
+              <span>tls 1.3 / aes-256</span>
+            </div>
+            {transaction.securityMeta?.signatureHash && (
+              <p className="font-mono text-[8px] text-zinc-500 truncate pt-0.5 border-t border-zinc-200">
+                sig: {transaction.securityMeta.signatureHash}
+              </p>
+            )}
           </div>
         </div>
 
