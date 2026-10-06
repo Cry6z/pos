@@ -155,22 +155,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [settings, isHydrated]);
 
-  // Toast Helpers
+  // Toast Helpers - Disabled per user request
   const showToast = (
-    title: string,
-    description?: string,
-    type: "success" | "info" | "warning" | "error" = "success"
+    _title?: string,
+    _description?: string,
+    _type: "success" | "info" | "warning" | "error" = "success"
   ) => {
-    const id = "toast-" + Date.now() + "-" + Math.random().toString(36).substring(2, 6);
-    setToasts((prev) => [...prev, { id, title, description, type }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 3800);
+    // Notifications disabled
   };
 
-  const removeToast = (id: string) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
+  const removeToast = (_id: string) => {};
 
   // Cart Calculations
   const subtotal = useMemo(() => {

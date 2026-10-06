@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Anonymous_Pro } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
-import { ToastContainer } from "@/components/Toast";
 import { GlobalReceiptViewer } from "@/components/GlobalReceiptViewer";
 import { AppLayoutWrapper } from "@/components/AppLayoutWrapper";
 
@@ -30,7 +29,6 @@ export default function RootLayout({
       <body className="min-h-full flex bg-[#f8fafc] dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50 font-mono lowercase selection:bg-zinc-900 selection:text-white dark:selection:bg-zinc-100 dark:selection:text-zinc-950">
         <AppProvider>
           <AppLayoutWrapper>{children}</AppLayoutWrapper>
-          <ToastContainer />
           <GlobalReceiptViewer />
         </AppProvider>
       </body>
